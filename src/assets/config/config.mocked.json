@@ -1,3 +1,3 @@
 {
-  "baseUrl": ""
+  "baseUrl": "./assets/items.mock.json"
 }
