@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+
+import { ItemsService } from 'src/app/items/items.service';
+
+import { Item } from 'src/app/items/item-information/item';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-items-list-container',
@@ -7,9 +13,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemsListContainerComponent implements OnInit {
 
-  constructor() { }
+  itemsList$: Observable<Item[]>;
+
+  constructor(private itemsService: ItemsService) { }
 
   ngOnInit() {
+    this.itemsList$ = this.itemsService.getAllItems();
   }
 
 }

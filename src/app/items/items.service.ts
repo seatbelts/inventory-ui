@@ -1,45 +1,42 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Item } from './item-information/item';
 
-@Injectable({
-  providedIn: 'root'
-})
+import { Item } from './item-information/item';
+import { AppConfig } from 'src/app/shared/app-config';
+
+import { CustomHttpService } from 'src/app/core/custom-http.service';
+import { AppConfigService } from 'src/app/shared/app-config.service';
+
+@Injectable()
 export class ItemsService {
 
+  private config: AppConfig;
+
   constructor(
-    private http: HttpClient
-  ) { }
-
-  setHeaders() {
-    try {
-      const authheader = new HttpHeaders({
-        'Content-type': 'application/json'
-      });
-      return authheader;
-    } catch (error) {
-      return error;
-    }
+    private http: CustomHttpService,
+    private configObject: AppConfigService
+  ) {
+    this.config = this.configObject.config;
   }
 
-  get(url: string, options?): Observable<any> {
-    return !!options ? this.http.get(url, options) : this.http.get(url);
+  getAllItems(): Observable<any> {
+    const requestUrl = `${this.config.baseUrl}`;
+    return this.http.get(requestUrl);
   }
 
-  post(url: string, payload: object, options?): Observable<any> {
-    const option = !!options ? { ...options, headers: this.setHeaders() } : { headers: this.setHeaders() };
-    return this.http.post(url, payload, option);
+  saveNewItem(payload: object): Observable<any> {
+    const requestUrl = `${this.config.baseUrl}`;
+    return this.http.post(requestUrl, payload);
   }
 
-  put(url: string, payload: object, options?): Observable<any> {
-    const option = !!options ? { ...options, headers: this.setHeaders() } : { headers: this.setHeaders() };
-    return this.http.put(url, payload, option);
+  updateItem(payload: object): Observable<any> {
+    const requestUrl = `${this.config.baseUrl}`;
+    return this.http.put(requestUrl, payload);
   }
 
-  delete(url: string, options?): Observable<any> {
-    const option = !!options ? { ...options, headers: this.setHeaders() } : { headers: this.setHeaders() };
-    return this.http.delete(url, option);
+  removeItem(payload: object): Observable<any> {
+    const requestUrl = `${this.config.baseUrl}`;
+    return this.http.delete(requestUrl);
   }
 }
 
