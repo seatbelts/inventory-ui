@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/items',
+    redirectTo: '/items/all',
     pathMatch: 'full'
   }
 ];
