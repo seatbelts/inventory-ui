@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  navigateTo(path: string) {
+  navigateTo(path: string): void {
     this.route.navigate([`items/${path}`]);
   }
 

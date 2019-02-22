@@ -4,6 +4,9 @@
       <div class="col-sm-6 offset-sm-3">
         <app-item-information
           [itemInformation]="item"
+          [itemOptions]="itemsOptions"
+          (editEmitter)="editItem($event)"
+          (deleteEmitter)="deleteItem($event)"
         ></app-item-information>
       </div>
     </div>

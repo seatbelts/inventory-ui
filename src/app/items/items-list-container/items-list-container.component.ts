@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs/internal/Observable';
 
 import { ItemsService } from 'src/app/items/items.service';
 
 import { Item } from 'src/app/items/item-information/item';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-items-list-container',
@@ -14,11 +15,37 @@ import { Observable } from 'rxjs/internal/Observable';
 export class ItemsListContainerComponent implements OnInit {
 
   itemsList$: Observable<Item[]>;
+  itemsOptions = {
+    isEditable: true,
+    isDeletable: true
+  };
 
-  constructor(private itemsService: ItemsService) { }
+  constructor(
+    private itemsService: ItemsService,
+    private route: Router
+    ) { }
 
   ngOnInit() {
+    this.getAllItems();
+  }
+
+  getAllItems(): void {
     this.itemsList$ = this.itemsService.getAllItems();
+  }
+
+  editItem(options) {
+    console.log(options);
+    if (options.edit) {
+      this.route.navigate(['items/edit']);
+    }
+  }
+
+  deleteItem(options) {
+    console.log(options);
+    if (options.delete) {
+      console.log('delete');
+      // this.itemsService.removeItem(options.itemId);
+    }
   }
 
 }
