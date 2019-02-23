@@ -33,17 +33,17 @@ export class ItemsListContainerComponent implements OnInit {
     this.itemsList$ = this.itemsService.getAllItems();
   }
 
-  editItem(options) {
+  onEditItem(options): void {
     console.log(options);
     if (options.edit) {
       this.route.navigate(['items/edit']);
     }
   }
 
-  deleteItem(options) {
+  onDeleteItem(options): void {
     console.log(options);
     if (options.delete) {
-      console.log('delete');
+      // TODO: Add delete function
       // this.itemsService.removeItem(options.itemId);
     }
   }

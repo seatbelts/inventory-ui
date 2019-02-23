@@ -3,15 +3,23 @@ import { CommonModule } from '@angular/common';
 
 import { ItemsRoutingModule } from './items-routing.module';
 
-import { ItemInformationComponent } from './item-information/item-information.component';
 import { ItemsListContainerComponent } from './items-list-container/items-list-container.component';
-
-import { ItemsService } from 'src/app/items/items.service';
 import { ItemAddContainerComponent } from './item-add-container/item-add-container.component';
 import { ItemEditContainerComponent } from './item-edit-container/item-edit-container.component';
 
+import { ItemInformationComponent } from './shared/item-information/item-information.component';
+import { ItemFormComponent } from './shared/item-form/item-form.component';
+
+import { ItemsService } from 'src/app/items/shared/items.service';
+
 @NgModule({
-  declarations: [ItemInformationComponent, ItemsListContainerComponent, ItemAddContainerComponent, ItemEditContainerComponent],
+  declarations: [
+    ItemInformationComponent,
+    ItemsListContainerComponent,
+    ItemAddContainerComponent,
+    ItemEditContainerComponent,
+    ItemFormComponent
+  ],
   imports: [
     CommonModule,
     ItemsRoutingModule

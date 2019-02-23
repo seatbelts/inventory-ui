@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Item } from './item-information/item';
+import { Item } from './item';
 import { AppConfig } from 'src/app/shared/app-config';
 
 import { CustomHttpService } from 'src/app/core/custom-http.service';
@@ -19,17 +19,17 @@ export class ItemsService {
     this.config = this.configObject.config;
   }
 
-  getAllItems(): Observable<any> {
+  getAllItems(): Observable<Item[]> {
     const requestUrl = `${this.config.baseUrl}`;
     return this.http.get(requestUrl);
   }
 
-  saveNewItem(payload: object): Observable<any> {
+  saveNewItem(payload: object): Observable<Item> {
     const requestUrl = `${this.config.baseUrl}`;
     return this.http.post(requestUrl, payload);
   }
 
-  updateItem(payload: object): Observable<any> {
+  updateItem(payload: object): Observable<Item> {
     const requestUrl = `${this.config.baseUrl}`;
     return this.http.put(requestUrl, payload);
   }
