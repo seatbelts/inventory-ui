@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 
 import { CustomHttpService } from 'src/app/core/custom-http.service';
 import { AppConfigService } from './shared/app-config.service';
+import { FormValidatorsService } from './shared/form-validators.service';
+
 import { HeaderComponent } from './core/header/header.component';
 
 const appInitializer = (appConfig: AppConfigService) => {
@@ -42,7 +44,8 @@ export function customHttpFactory(http: HttpClient) {
       provide: CustomHttpService,
       useFactory: customHttpFactory,
       deps: [HttpClient]
-    }
+    },
+    FormValidatorsService
   ],
   bootstrap: [AppComponent]
 })

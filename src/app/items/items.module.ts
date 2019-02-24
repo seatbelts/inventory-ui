@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { ItemsRoutingModule } from './items-routing.module';
 
@@ -22,7 +23,9 @@ import { ItemsService } from 'src/app/items/shared/items.service';
   ],
   imports: [
     CommonModule,
-    ItemsRoutingModule
+    ItemsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ItemsService
