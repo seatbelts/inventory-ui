@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { ItemsService } from '../shared/items.service';
+import { Item } from '../shared/item';
 
 @Component({
   selector: 'app-item-add-container',
@@ -7,9 +11,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemAddContainerComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private itemService: ItemsService,
+    private route: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  saveItem(itemInformation: Item) {
+    this.itemService.saveNewItem(itemInformation)
+      .subscribe(() => {
+        this.route.navigate(['/items/all']);
+      });
   }
 
 }

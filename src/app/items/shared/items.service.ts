@@ -11,6 +11,7 @@ import { AppConfigService } from 'src/app/shared/app-config.service';
 export class ItemsService {
 
   private config: AppConfig;
+  private itemToEdit: Item;
 
   constructor(
     private http: CustomHttpService,
@@ -37,6 +38,14 @@ export class ItemsService {
   removeItem(payload: object): Observable<any> {
     const requestUrl = `${this.config.baseUrl}`;
     return this.http.delete(requestUrl);
+  }
+
+  set item(item: Item) {
+    this.itemToEdit = item;
+  }
+
+  get item(): Item {
+    return this.itemToEdit;
   }
 }
 

@@ -34,8 +34,9 @@ export class ItemsListContainerComponent implements OnInit {
   }
 
   onEditItem(options): void {
-    console.log(options);
     if (options.edit) {
+      delete options.edit;
+      this.itemsService.item = options;
       this.route.navigate(['items/edit']);
     }
   }
