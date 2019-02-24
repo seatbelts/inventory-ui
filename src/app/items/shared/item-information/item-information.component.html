@@ -5,7 +5,21 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <p class="card-text">{{ itemInformation.price }}</p>
+        <div class=col-sm-4>
+          <p class="card-text">
+            <del class="originalPrice">{{ itemInformation.price | currency }}</del>
+          </p>
+        </div>
+        <div class=col-sm-4>
+          <p class="card-text discountedPrice">
+            {{ discountedPrice(itemInformation.price, itemInformation.discount) | currency }}
+          </p>
+        </div>
+        <div class=col-sm-4>
+          <p class="card-text">
+            {{ itemInformation.discount }}% off
+          </p>
+        </div>
       </div>
       <div class="row">
         <p class="card-text">{{ itemInformation.description }}</p>

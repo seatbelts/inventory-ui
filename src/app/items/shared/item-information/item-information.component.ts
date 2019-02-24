@@ -15,12 +15,16 @@ export class ItemInformationComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  discountedPrice(price: number, discount: number): number {
+    const offItem = (discount / 100) * price;
+    return price - offItem;
   }
 
   editItem(): void {
     if (this.itemOptions.isEditable) {
-      this.edit.emit({ edit: true, itemId: this.itemInformation.id });
+      this.edit.emit({ edit: true, ...this.itemInformation });
     }
   }
 
