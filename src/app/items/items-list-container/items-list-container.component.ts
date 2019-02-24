@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/internal/Observable';
 
-import { ItemsService } from 'src/app/items/items.service';
+import { ItemsService } from 'src/app/items/shared/items.service';
 
-import { Item } from 'src/app/items/item-information/item';
+import { Item } from 'src/app/items/shared/item';
 
 @Component({
   selector: 'app-items-list-container',
