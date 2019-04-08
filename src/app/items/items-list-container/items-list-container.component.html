@@ -1,6 +1,11 @@
 <ng-container *ngIf="itemsList$ | async as itemsList; else loading">
   <div class="container">
-    <div class="row" *ngFor="let item of itemsList">
+      <div class="row">
+          <div class="col-sm-6 offset-sm-3">
+            <input [(ngModel)]="searchText" class="form-control" placeholder="search item by name">
+          </div>
+      </div>
+    <div class="row" *ngFor="let item of itemsList | filter: searchText">
       <div class="col-sm-6 offset-sm-3">
         <app-item-information
           [itemInformation]="item"

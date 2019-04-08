@@ -12,6 +12,7 @@ import { ItemInformationComponent } from './shared/item-information/item-informa
 import { ItemFormComponent } from './shared/item-form/item-form.component';
 
 import { ItemsService } from 'src/app/items/shared/items.service';
+import { FilterPipe } from './shared/file.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ItemsService } from 'src/app/items/shared/items.service';
     ItemsListContainerComponent,
     ItemAddContainerComponent,
     ItemEditContainerComponent,
-    ItemFormComponent
+    ItemFormComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,

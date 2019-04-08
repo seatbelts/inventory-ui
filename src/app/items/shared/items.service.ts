@@ -31,12 +31,12 @@ export class ItemsService {
   }
 
   updateItem(payload: object): Observable<Item> {
-    const requestUrl = `${this.config.baseUrl}`;
+    const requestUrl = `${this.config.baseUrl}/${payload['id']}`;
     return this.http.put(requestUrl, payload);
   }
 
-  removeItem(payload: object): Observable<any> {
-    const requestUrl = `${this.config.baseUrl}`;
+  removeItem(id: string): Observable<any> {
+    const requestUrl = `${this.config.baseUrl}/${id}`;
     return this.http.delete(requestUrl);
   }
 

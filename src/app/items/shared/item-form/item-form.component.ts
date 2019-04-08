@@ -36,7 +36,7 @@ export class ItemFormComponent implements OnInit {
       description: [this.itemInformation.description, Validators.required],
       price: [this.itemInformation.price, [
         Validators.required,
-        Validators.pattern('^[0-9]*$')
+        Validators.pattern('^[0-9]+(\.[0-9][0-9])?$')
       ]],
       discount: [this.itemInformation.discount, [
         Validators.required, Validators.pattern('^[0-9]*$'),

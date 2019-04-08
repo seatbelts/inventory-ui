@@ -28,6 +28,9 @@
             <div *ngIf="formControlName('price').errors.required">
               Price is required.
             </div>
+            <div *ngIf="formControlName('price').errors.pattern">
+              Price must be a valid number
+            </div>
           </div>
           <input formControlName="price" type="number" class="form-control" id="itemPriceInput" placeholder="Enter item price">
       </div>

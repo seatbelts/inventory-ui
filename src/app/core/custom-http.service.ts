@@ -14,7 +14,8 @@ export class CustomHttpService {
   setHeaders() {
     try {
       const authheader = new HttpHeaders({
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       });
       return authheader;
     } catch (error) {
@@ -23,7 +24,8 @@ export class CustomHttpService {
   }
 
   get(url: string, options?): Observable<any> {
-    return !!options ? this.http.get(url, options) : this.http.get(url);
+    const option = !!options ? { ...options, headers: this.setHeaders() } : { headers: this.setHeaders() };
+    return !!options ? this.http.get(url, options) : this.http.get(url, option);
   }
 
   post(url: string, payload: object, options?): Observable<any> {
@@ -33,7 +35,7 @@ export class CustomHttpService {
 
   put(url: string, payload: object, options?): Observable<any> {
     const option = !!options ? { ...options, headers: this.setHeaders() } : { headers: this.setHeaders() };
-    return this.http.put(url, payload, option);
+    return this.http.patch(url, payload, option);
   }
 
   delete(url: string, options?): Observable<any> {

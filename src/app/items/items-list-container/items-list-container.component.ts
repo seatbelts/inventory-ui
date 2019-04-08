@@ -42,11 +42,9 @@ export class ItemsListContainerComponent implements OnInit {
   }
 
   onDeleteItem(options): void {
-    console.log(options);
     if (options.delete) {
       // TODO: Add delete function
-      // this.itemsService.removeItem(options.itemId);
+      this.itemsService.removeItem(options.itemId);
     }
   }
-
 }
