@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemEditContainerComponent } from './item-edit-container.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ItemsService } from '../shared/items.service';
+import { ItemsServiceMock } from 'src/app/tests/items.service.mock';
+import { Router } from '@angular/router';
+import { RouterServiceMock } from 'src/app/tests/router.service.mock';
 
 describe('ItemEditContainerComponent', () => {
   let component: ItemEditContainerComponent;
@@ -8,7 +14,13 @@ describe('ItemEditContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemEditContainerComponent ]
+      imports: [ ReactiveFormsModule ],
+      declarations: [ ItemEditContainerComponent ],
+      providers: [
+        { provide: Router, useValue: RouterServiceMock },
+        { provide: ItemsService, useValue: ItemsServiceMock }
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));
