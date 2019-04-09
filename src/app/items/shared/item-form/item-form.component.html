@@ -1,0 +1,56 @@
+<div class="item-card">
+  <div class="card container">
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="itemNameLabel">Item Name</label>
+        <div class="form-control" *ngIf="formControlName('name').invalid && (formControlName('name').dirty || formControlName('name').touched)"
+          class="alert alert-danger">
+          <div *ngIf="formControlName('name').errors.required">
+            Name is required.
+          </div>
+        </div>
+        <input formControlName="name" type="text" class="form-control" id="name" placeholder="Enter item name">
+      </div>
+      <div class="form-group">
+        <label for="itemDescriptionLabel">Item Descriptiom</label>
+        <div class="form-control" *ngIf="formControlName('description').invalid && (formControlName('description').dirty || formControlName('description').touched)"
+          class="alert alert-danger">
+          <div *ngIf="formControlName('description').errors.required">
+            Description is required.
+          </div>
+        </div>
+        <textarea formControlName="description" class="form-control" id="itemDescriptionInput" placeholder="Enter item description" rows="2"></textarea>
+      </div>
+      <div class="form-group">
+          <label for="itemPriceLabel">Item Price</label>
+          <div class="form-control" *ngIf="formControlName('price').invalid && (formControlName('price').dirty || formControlName('price').touched)"
+            class="alert alert-danger">
+            <div *ngIf="formControlName('price').errors.required">
+              Price is required.
+            </div>
+            <div *ngIf="formControlName('price').errors.pattern">
+              Price must be a valid number
+            </div>
+          </div>
+          <input formControlName="price" type="number" class="form-control" id="itemPriceInput" placeholder="Enter item price">
+      </div>
+      <div class="form-group">
+        <label for="itemNameLabel">Item Discount</label>
+        <div class="form-control" *ngIf="formControlName('discount').invalid && (formControlName('discount').dirty || formControlName('discount').touched)"
+          class="alert alert-danger">
+          <div *ngIf="formControlName('discount').errors.required">
+            Discount is required.
+          </div>
+          <div *ngIf="formControlName('discount').errors.maxValue">
+            Discount must be equal or less than 100.
+          </div>
+          <div *ngIf="formControlName('discount').errors.pattern">
+            Discount must be a valid number
+          </div>
+        </div>
+        <input formControlName="discount" type="number" maxlength=3 class="form-control" id="itemDiscountInput" placeholder="Enter item discount">
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!itemForm.valid">Submit</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="item-card">
+  <div class="card text-center">
+    <div class="card-header">
+      {{ itemInformation.name }}
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class=col-sm-4>
+          <p class="card-text">
+            <del class="originalPrice">{{ itemInformation.price | currency }}</del>
+          </p>
+        </div>
+        <div class=col-sm-4>
+          <p class="card-text discountedPrice">
+            {{ discountedPrice(itemInformation.price, itemInformation.discount) | currency }}
+          </p>
+        </div>
+        <div class=col-sm-4>
+          <p class="card-text">
+            {{ itemInformation.discount }}% off
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <p class="card-text">{{ itemInformation.description }}</p>
+      </div>
+      <div class="row text-center">
+        <div class="col-sm-12">
+          <div class="btn-group buttons">
+            <button class="btn btn-primary item-button" (click)="editItem()">Edit Item</button>
+            <button class="btn btn-danger item-button" (click)="deleteItem()">Delete Item</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
