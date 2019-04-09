@@ -7,7 +7,8 @@ export const ItemsServiceMock = {
   getAllItems: () => of(items),
   saveNewItem: (item) => of(item),
   updateItem: (id, item) => of(item),
-  removeItem: (id) => of(items)
+  removeItem: (id) => of(items),
+  item: (item) => item,
 
 };
 

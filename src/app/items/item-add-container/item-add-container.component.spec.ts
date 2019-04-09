@@ -42,12 +42,24 @@ describe('ItemAddContainerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call saveNewItem on itemService once saveItem is called', () => {
-    spyOn(component['itemService'], 'saveNewItem').and.returnValue(of({}));
+  describe('on saveItem', () => {
+    it('should call saveNewItem on itemService once saveItem is called', () => {
+      spyOn(component['itemService'], 'saveNewItem').and.returnValue(of({}));
 
-    component.saveItem(items[0]);
+      component.saveItem(items[0]);
 
-    expect(component['itemService'].saveNewItem).toHaveBeenCalledWith(items[0]);
+      expect(component['itemService'].saveNewItem).toHaveBeenCalledWith(items[0]);
+    });
+
+    it('should navigate to all items once saveItem is done', () => {
+      spyOn(component['itemService'], 'saveNewItem').and.returnValue(of({}));
+      spyOn(component['route'], 'navigate');
+
+      component.saveItem(items[0]);
+
+      expect(component['itemService'].saveNewItem).toHaveBeenCalledWith(items[0]);
+      expect(component['route'].navigate).toHaveBeenCalled();
+    });
   });
 
 
