@@ -12,6 +12,9 @@ import { Item } from '../shared/item';
 import { of } from 'rxjs';
 import { items } from 'src/app/tests/items.data';
 import { RouterServiceMock } from 'src/app/tests/router.service.mock';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalServiceMock } from 'src/app/tests/bsmodal.service.mock';
+import { BsModalRefMock } from 'src/app/tests/bsmodalref.mock';
 
 describe('ItemAddContainerComponent', () => {
   let component: ItemAddContainerComponent;
@@ -24,6 +27,7 @@ describe('ItemAddContainerComponent', () => {
       ],
       providers: [
         { provide: Router, useValue: RouterServiceMock },
+        { provide: BsModalService, useValue: BsModalServiceMock},
         { provide: ItemsService, useValue: ItemsServiceMock }
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -51,14 +55,20 @@ describe('ItemAddContainerComponent', () => {
       expect(component['itemService'].saveNewItem).toHaveBeenCalledWith(items[0]);
     });
 
-    it('should navigate to all items once saveItem is done', () => {
+    it('should call openModal once saveItem is done', () => {
       spyOn(component['itemService'], 'saveNewItem').and.returnValue(of({}));
-      spyOn(component['route'], 'navigate');
+      spyOn(component['modalService'], 'show').and.returnValue({
+        content: {
+          modal$: of(true),
+          modalOptions: {}
+        }
+      });
+      spyOn(component, 'openModal');
 
       component.saveItem(items[0]);
 
       expect(component['itemService'].saveNewItem).toHaveBeenCalledWith(items[0]);
-      expect(component['route'].navigate).toHaveBeenCalled();
+      expect(component.openModal).toHaveBeenCalled();
     });
   });
 

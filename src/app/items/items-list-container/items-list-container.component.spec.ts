@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { RouterServiceMock } from 'src/app/tests/router.service.mock';
 import { of } from 'rxjs';
 import { items } from 'src/app/tests/items.data';
+import { BsModalServiceMock } from 'src/app/tests/bsmodal.service.mock';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 describe('ItemsListContainerComponent', () => {
   let component: ItemsListContainerComponent;
@@ -25,6 +27,7 @@ describe('ItemsListContainerComponent', () => {
       ],
       providers: [
         { provide: ItemsService, useValue: ItemsServiceMock },
+        { provide: BsModalService, useValue: BsModalServiceMock },
         { provide: Router, useValue: RouterServiceMock }
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -90,9 +93,22 @@ describe('ItemsListContainerComponent', () => {
       option['itemId'] = option['id'];
 
       it('should call removeItem on the service with id', () => {
-        spyOn(component['itemsService'], 'removeItem');
-        component.onDeleteItem(option)
+        spyOn(component['itemsService'], 'removeItem').and.returnValue(of(items));
+        spyOn(component, 'openModal');
+
+        component.onDeleteItem(option);
+
         expect(component['itemsService'].removeItem).toHaveBeenCalledWith(option.id);
+      });
+
+      it('should open the succes modal on delete item', () => {
+        spyOn(component['itemsService'], 'removeItem').and.returnValue(of(items));
+        spyOn(component, 'openModal');
+
+        component.onDeleteItem(option);
+
+        expect(component['itemsService'].removeItem).toHaveBeenCalledWith(option.id);
+        expect(component.openModal).toHaveBeenCalled();
       });
     });
   });

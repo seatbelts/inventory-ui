@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { RouterServiceMock } from 'src/app/tests/router.service.mock';
 import { of } from 'rxjs';
 import { items } from 'src/app/tests/items.data';
+import { BsModalServiceMock } from 'src/app/tests/bsmodal.service.mock';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 describe('ItemEditContainerComponent', () => {
   let component: ItemEditContainerComponent;
@@ -20,6 +22,7 @@ describe('ItemEditContainerComponent', () => {
       declarations: [ ItemEditContainerComponent ],
       providers: [
         { provide: Router, useValue: RouterServiceMock },
+        { provide: BsModalService, useValue: BsModalServiceMock},
         { provide: ItemsService, useValue: ItemsServiceMock }
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -68,7 +71,7 @@ describe('ItemEditContainerComponent', () => {
     it('should navigate to all items once saveItem is done', () => {
       spyOn(component['itemService'], 'updateItem').and.
         returnValue(of(items[0]));
-      spyOn(component['route'], 'navigate');
+      spyOn(component, 'openModal');
 
       component['itemService'].item = items[0];
       component.ngOnInit();
@@ -76,7 +79,21 @@ describe('ItemEditContainerComponent', () => {
       component.editItem(items[0]);
       expect(component.item).toBe(items[0]);
       expect(component['itemService'].updateItem).toHaveBeenCalledWith(items[0]);
-      expect(component['route'].navigate).toHaveBeenCalled();
+      expect(component.openModal).toHaveBeenCalled();
     });
+
+    // it('should navigate to all items once saveItem is done', () => {
+    //   spyOn(component['itemService'], 'updateItem').and.
+    //     returnValue(of(items[0]));
+    //   spyOn(component['route'], 'navigate');
+
+    //   component['itemService'].item = items[0];
+    //   component.ngOnInit();
+
+    //   component.editItem(items[0]);
+    //   expect(component.item).toBe(items[0]);
+    //   expect(component['itemService'].updateItem).toHaveBeenCalledWith(items[0]);
+    //   expect(component['route'].navigate).toHaveBeenCalled();
+    // });
   });
 });

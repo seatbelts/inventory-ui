@@ -6,6 +6,10 @@ import { Observable } from 'rxjs/internal/Observable';
 import { ItemsService } from 'src/app/items/shared/items.service';
 
 import { Item } from 'src/app/items/shared/item';
+import { of, forkJoin } from 'rxjs';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ModalComponent } from '../shared/modal/modal.component';
+import { addEditModalOptions, deleteModalOptions } from '../shared/modal/modal.constants';
 
 @Component({
   selector: 'app-items-list-container',
@@ -15,6 +19,7 @@ import { Item } from 'src/app/items/shared/item';
 export class ItemsListContainerComponent implements OnInit {
 
   itemsList$: Observable<Item[]>;
+  modalRef: BsModalRef
   itemsOptions = {
     isEditable: true,
     isDeletable: true
@@ -22,7 +27,8 @@ export class ItemsListContainerComponent implements OnInit {
 
   constructor(
     private itemsService: ItemsService,
-    private route: Router
+    private route: Router,
+    private modalService: BsModalService
     ) { }
 
   ngOnInit() {
@@ -41,10 +47,24 @@ export class ItemsListContainerComponent implements OnInit {
     }
   }
 
+  openModal() {
+    this.modalRef = this.modalService.show(ModalComponent);
+    this.modalRef.content.modalOptions = addEditModalOptions;
+    const modal$ = this.modalRef.content.modal$;
+    modal$.subscribe(data => {
+      if (data) {
+        this.modalRef.hide();
+      }
+    });
+  }
+
   onDeleteItem(options): void {
     if (options.delete) {
       // TODO: Add delete function
-      this.itemsService.removeItem(options.itemId);
+      this.itemsService.removeItem(options.itemId).subscribe(items => {
+        this.itemsList$ = of(items);
+        this.openModal();
+      });
     }
   }
 }
